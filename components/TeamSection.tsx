@@ -5,8 +5,11 @@ import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { FaChevronLeft, FaChevronRight, FaLinkedin, FaInstagram } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
+import type { IconType } from "react-icons";
 
-const socials = [
+type Social = { Icon: IconType; href: string; label: string };
+
+const defaultSocials: Social[] = [
   { Icon: FaLinkedin, href: "#", label: "LinkedIn" },
   { Icon: MdEmail, href: "mailto:team@innovably.digital", label: "Email" },
   { Icon: FaInstagram, href: "#", label: "Instagram" },
@@ -16,26 +19,29 @@ const team: {
   name: string;
   role: string;
   image: string;
+  socials: Social[];
 }[] = [
   {
     name: "Emmanuel Majariwa",
     role: "CEO & Co-founder",
     image: "/img/Emmanuel_Majariwa.jpeg",
+    socials: defaultSocials,
   },
   {
     name: "Dan Ngenzi Ruty",
     role: "CTO & Co-founder",
     image: "/img/Dan_Ngenzi_Ruty.jpeg",
+    socials: defaultSocials,
   },
   {
-    name: "Bethelhem Feleke",
-    role: "Product Developer",
-    image: "/img/Bethelhem_Feleke.jpeg",
-  },
-  {
-    name: "Kashif Bin Umer",
-    role: "AI Engineer",
-    image: "/img/kashif-bin-umer.png",
+    name: "Afanyu Emmanuel",
+    role: "Full-Stack Developer",
+    image: "/img/afa-1.png",
+    socials: [
+      { Icon: FaLinkedin, href: "https://www.linkedin.com/in/afanyu-emmanuel/", label: "LinkedIn" },
+      { Icon: MdEmail, href: "mailto:afanyuemma2002@gmail.com", label: "Email" },
+      { Icon: FaInstagram, href: "https://www.instagram.com/afanyudelonie/", label: "Instagram" },
+    ],
   },
 ];
 
@@ -161,10 +167,10 @@ export default function TeamSection() {
           onWheel={pauseAutoAdvance}
           className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-4 [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {team.map(({ name, role, image }) => (
+          {team.map(({ name, role, image, socials }) => (
             <div
               key={name}
-              className="team-card group flex w-[80vw] shrink-0 snap-start flex-col items-center sm:w-64 lg:w-[calc((100%-4.5rem)/4)]"
+              className="team-card group flex w-[80vw] shrink-0 snap-start flex-col items-center sm:w-72 lg:w-[calc((100%-3rem)/3)]"
             >
               {/* Image */}
               <div className="relative w-full">
@@ -184,6 +190,9 @@ export default function TeamSection() {
                       key={label}
                       href={href}
                       aria-label={label}
+                      {...(href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                       className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface-2 text-foreground-muted transition-colors duration-[var(--duration-fast)] hover:border-border-strong hover:text-foreground"
                     >
                       <Icon className="h-3.5 w-3.5" />
