@@ -213,7 +213,7 @@ export default function Hero() {
   );
 
   return (
-    <div ref={rootRef} className="relative overflow-hidden bg-background">
+    <div id="home" ref={rootRef} className="relative overflow-hidden bg-background">
       <div className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
       <div
         className="hero-glow pointer-events-none absolute inset-x-0 top-[-12rem] h-[36rem] bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(59,99,245,0.22),transparent_70%)]"

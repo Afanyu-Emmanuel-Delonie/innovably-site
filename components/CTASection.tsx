@@ -60,13 +60,13 @@ export default function CTASection() {
         </p>
         <div className="cta-buttons flex flex-col gap-4 sm:flex-row">
           <a
-            href="#contact"
+            href="/#contact"
             className="flex h-12 items-center justify-center rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:bg-primary-600"
           >
             Start a project
           </a>
           <a
-            href="#contact"
+            href="/#contact"
             className="flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-base font-medium text-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:border-border-strong hover:bg-surface-2"
           >
             Get in touch

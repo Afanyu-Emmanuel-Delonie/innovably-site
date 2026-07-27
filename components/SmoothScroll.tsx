@@ -21,6 +21,12 @@ export default function SmoothScroll() {
     gsap.ticker.add(onTick);
     gsap.ticker.lagSmoothing(0);
 
+    // Pinned/measured triggers (e.g. the Services horizontal scroll) can
+    // compute their scroll distance before the web font swaps in and card
+    // widths settle. Refresh once layout is actually final so pin-spacer
+    // heights match reality instead of the too-small first guess.
+    document.fonts.ready.then(() => ScrollTrigger.refresh());
+
     return () => {
       gsap.ticker.remove(onTick);
       lenis.destroy();

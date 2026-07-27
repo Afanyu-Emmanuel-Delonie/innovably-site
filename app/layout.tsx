@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import PageLoader from "@/components/PageLoader";
 
 export const metadata: Metadata = {
   title: "Innovably",
@@ -28,6 +29,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         <SmoothScroll />
+        <PageLoader />
         {children}
       </body>
     </html>
