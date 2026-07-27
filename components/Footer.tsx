@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
@@ -57,9 +58,12 @@ export default function Footer() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-16 sm:px-10">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="footer-col col-span-2 flex flex-col gap-4 sm:col-span-1">
-            <span className="text-base font-semibold tracking-tight text-foreground">
-              Innovably
-            </span>
+            <div className="flex items-center gap-2">
+              <Image src="/img/logo-dark.png" alt="" width={28} height={28} className="h-7 w-7 rounded-md" />
+              <span className="text-base font-semibold tracking-tight text-foreground">
+                Innovably
+              </span>
+            </div>
             <p className="max-w-xs text-sm leading-6 text-foreground-muted">
               We build software. Yours or ours.
             </p>

@@ -29,23 +29,21 @@ export default function StatsSection() {
       });
 
       // number roll-up for each stat value
-      document.querySelectorAll<HTMLElement>(".stat-number").forEach((el) => {
+      sectionRef.current?.querySelectorAll<HTMLElement>(".stat-number").forEach((el) => {
         const raw = el.dataset.value ?? "";
         const num = parseFloat(raw);
         if (isNaN(num)) return;
-        const suffix = raw.replace(String(Math.floor(num)), "");
-        gsap.from(
-          { val: 0 },
-          {
-            val: num,
-            duration: 1.4,
-            ease: "power2.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 82%" },
-            onUpdate() {
-              el.textContent = Math.round((this as any).targets()[0].val) + suffix;
-            },
+        const suffix = raw.slice(String(Math.floor(num)).length);
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: num,
+          duration: 1.4,
+          ease: "power2.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 82%" },
+          onUpdate() {
+            el.textContent = Math.round(obj.val) + suffix;
           },
-        );
+        });
       });
     },
     { scope: sectionRef },
