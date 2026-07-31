@@ -9,7 +9,7 @@ const contactCards = [
     Icon: MdEmail,
     title: "Email",
     body: (
-      <span className="text-base text-foreground">team@innovably.digital</span>
+      <span className="text-base text-foreground">support@innovably.cloud</span>
     ),
     footnote: "We aim to respond within 24 hours",
   },

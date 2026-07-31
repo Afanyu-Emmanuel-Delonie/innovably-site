@@ -25,13 +25,17 @@ const team: {
     name: "Emmanuel Majariwa",
     role: "CEO & Co-founder",
     image: "/img/Emmanuel_Majariwa.jpeg",
-    socials: defaultSocials,
+    socials: [
+      { Icon: FaLinkedin, href: "https://www.linkedin.com/in/emmanuel-majariwa/", label: "LinkedIn" },
+    ],
   },
   {
     name: "Dan Ngenzi Ruty",
     role: "CTO & Co-founder",
     image: "/img/Dan_Ngenzi_Ruty.jpeg",
-    socials: defaultSocials,
+     socials: [
+      { Icon: FaLinkedin, href: "https://www.linkedin.com/in/dan-ngenzi-ya-ruty/", label: "LinkedIn" },
+    ],
   },
   {
     name: "Afanyu Emmanuel",
