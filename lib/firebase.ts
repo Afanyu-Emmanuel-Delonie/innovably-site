@@ -13,6 +13,12 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
+if (!firebaseConfig.apiKey) {
+  throw new Error(
+    "Missing NEXT_PUBLIC_FIREBASE_API_KEY. Add it to your Vercel environment variables."
+  );
+}
+
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
