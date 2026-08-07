@@ -238,7 +238,7 @@ export default function Hero() {
         <div className="hero-cta mt-10 flex flex-col gap-4 text-base font-medium sm:flex-row">
           <StartProjectButton />
           <a
-            href="#"
+            href="/solutions"
             className="flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:border-border-strong hover:bg-surface-2"
           >
             View our work

@@ -44,11 +44,11 @@ export default function StartProjectFlow() {
     setData((d) => ({ ...d, currency: next }));
   }
 
-  async function handleBooked(slot: BookedSlot) {
+  function handleBooked(slot: BookedSlot) {
     setBookedSlot(slot);
-    trackEvent("booking_confirmed", { hasStartTime: Boolean(slot.startTime) });
-    await submitBooking(data, slot);
     setStage("confirmed");
+    trackEvent("booking_confirmed", { hasStartTime: Boolean(slot.startTime) });
+    submitBooking(data, slot);
   }
 
   const progressStep = typeof stage === "number" ? stage : stage === "low-fit" ? 3 : 4;
@@ -104,7 +104,7 @@ export default function StartProjectFlow() {
           />
         )}
 
-        {stage === "confirmed" && bookedSlot && <Confirmation data={data} slot={bookedSlot} />}
+        {stage === "confirmed" && <Confirmation data={data} slot={bookedSlot ?? {}} />}
       </div>
     </div>
   );

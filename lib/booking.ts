@@ -89,7 +89,10 @@ export async function submitBooking(data: BookingData, slot: BookedSlot): Promis
       budgetAmount: data.budgetAmount || null,
       currency: data.currency,
       timeline: data.timeline || null,
-      bookedSlot: slot,
+      bookedSlot: {
+        ...(slot.startTime !== undefined && { startTime: slot.startTime }),
+        ...(slot.eventName !== undefined && { eventName: slot.eventName }),
+      },
       submittedAt: serverTimestamp(),
     });
   } catch (err) {

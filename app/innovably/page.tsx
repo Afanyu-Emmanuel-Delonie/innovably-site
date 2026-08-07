@@ -59,6 +59,8 @@ export default function AnalyticsPage() {
         return;
       }
 
+      setReady(true);
+
       // Realtime listeners — the dashboard updates live as new submissions
       // come in, no manual refresh needed.
       unsubBookings = onSnapshot(
@@ -82,7 +84,6 @@ export default function AnalyticsPage() {
               } satisfies BookingDoc;
             }),
           );
-          setReady(true);
         },
       );
 

@@ -17,25 +17,36 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 
-// Some networks (corporate proxies, some browser extensions, sandboxed/dev
-// environments) abort Firestore's default WebChannel streaming connection —
-// writes and listeners then hang forever with no error. Auto-detecting
-// long-polling makes the connection resilient there at a small latency cost.
-// Guarded with try/catch because initializeFirestore() throws if it's ever
-// called twice for the same app (e.g. across a dev HMR reload).
+// Force long-polling so Firestore works reliably across proxies, extensions,
+// and environments that block WebChannel (the default transport). Using
+// forceLongPolling instead of autoDetect avoids the detection round-trip that
+// can hang indefinitely when the unload Permissions-Policy blocks Firebase's
+// internal beacon listener.
 let firestoreDb;
 try {
   firestoreDb = initializeFirestore(app, {
-    experimentalAutoDetectLongPolling: true,
+    experimentalForceLongPolling: true,
   });
 } catch {
   firestoreDb = getFirestore(app);
 }
 export const db = firestoreDb;
 
-// Analytics needs browser APIs (and isn't always supported) — resolve lazily
-// and guard against SSR instead of calling getAnalytics() at module scope.
+// Analytics is initialised lazily after the page is interactive so its
+// internal unload/pagehide listeners don't race with the Permissions-Policy
+// restriction that blocks the unload event in modern browsers.
 export const analyticsPromise: Promise<Analytics | null> =
   typeof window === "undefined"
     ? Promise.resolve(null)
-    : isSupported().then((ok) => (ok ? getAnalytics(app) : null));
+    : new Promise((resolve) => {
+        const init = () =>
+          isSupported()
+            .then((ok) => resolve(ok ? getAnalytics(app) : null))
+            .catch(() => resolve(null));
+
+        if (document.readyState === "complete") {
+          init();
+        } else {
+          window.addEventListener("load", init, { once: true });
+        }
+      });

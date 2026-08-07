@@ -27,23 +27,14 @@ const navLinks: NavLink[] = [
       { label: "AI/ML Solutions", href: "/services/ai-ml-solutions" },
     ],
   },
-  {
-    label: "Products",
-    children: [
-      { label: "EAZZ QUOTE", href: "/solutions#eazz-quote" },
-      { label: "EAZZ BOOKS", href: "/solutions#eazz-books" },
-      { label: "EAZZ TRACK", href: "/solutions#eazz-track" },
-      { label: "EAZZ MEETINGS", href: "/solutions#eazz-meetings" },
-      { label: "EAZZ DOCS", href: "/solutions#eazz-docs" },
-      { label: "EAZZ EDU", href: "/solutions#eazz-edu" },
-    ],
-  },
+  { label: "Products", href: "/solutions" },
   { label: "Contact", href: "/#contact", section: "contact" },
 ];
 
 export default function Nav() {
   const navRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const linksRef = useRef<HTMLUListElement>(null);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
@@ -120,7 +111,40 @@ export default function Nav() {
   useGSAP(
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
       gsap.from(navRef.current, { y: -16, opacity: 0 });
+
+      // Stagger-in desktop links
+      gsap.from(linksRef.current?.querySelectorAll("li") ?? [], {
+        y: -10,
+        opacity: 0,
+        stagger: 0.07,
+        duration: 0.5,
+        delay: 0.2,
+        ease: "power3.out",
+      });
+
+      // Magnetic hover on each desktop link
+      const items = linksRef.current?.querySelectorAll<HTMLElement>(".nav-item") ?? [];
+      const cleanups: (() => void)[] = [];
+
+      items.forEach((el) => {
+        const onMove = (e: MouseEvent) => {
+          const rect = el.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+          const y = ((e.clientY - rect.top) / rect.height - 0.5) * 6;
+          gsap.to(el, { x, y, duration: 0.3, ease: "power2.out" });
+        };
+        const onLeave = () => gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1,0.4)" });
+        el.addEventListener("mousemove", onMove);
+        el.addEventListener("mouseleave", onLeave);
+        cleanups.push(() => {
+          el.removeEventListener("mousemove", onMove);
+          el.removeEventListener("mouseleave", onLeave);
+        });
+      });
+
+      return () => cleanups.forEach((fn) => fn());
     },
     { scope: navRef },
   );
@@ -151,7 +175,7 @@ export default function Nav() {
           </Link>
 
           {/* Desktop links */}
-          <ul className="hidden items-center gap-8 text-sm md:flex">
+          <ul ref={linksRef} className="hidden items-center gap-8 text-sm md:flex">
             {navLinks.map((link) => {
               const active = isActive(link);
 
@@ -160,7 +184,7 @@ export default function Nav() {
                   <li key={link.label} className="group relative">
                     <span
                       tabIndex={0}
-                      className={`relative flex cursor-default items-center gap-1 transition-colors duration-[var(--duration-fast)] hover:text-foreground focus-visible:text-foreground focus:outline-none ${
+                      className={`nav-item relative flex cursor-default items-center gap-1 transition-colors duration-[var(--duration-fast)] hover:text-foreground focus-visible:text-foreground focus:outline-none ${
                         active ? "text-foreground" : "text-foreground-muted"
                       }`}
                     >
@@ -170,7 +194,6 @@ export default function Nav() {
                         <span className="absolute -bottom-1 left-0 h-px w-full rounded-full bg-primary" />
                       )}
                     </span>
-
                     <div className="invisible absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-[var(--duration-fast)] group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
                       <ul className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-2 shadow-lg shadow-black/20">
                         {link.children.map((child) => (
@@ -197,7 +220,7 @@ export default function Nav() {
                 <li key={link.label}>
                   <Link
                     href={link.href!}
-                    className={`relative transition-colors duration-[var(--duration-fast)] hover:text-foreground ${
+                    className={`nav-item relative transition-colors duration-[var(--duration-fast)] hover:text-foreground ${
                       active ? "text-foreground" : "text-foreground-muted"
                     }`}
                   >
