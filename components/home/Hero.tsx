@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
 import { MdDesignServices, MdPhoneIphone, MdCloud, MdPsychology, MdBusinessCenter } from "react-icons/md";
 import { TbBrush } from "react-icons/tb";
-import StartProjectButton from "@/components/StartProjectButton";
+import StartProjectButton from "@/components/home/StartProjectButton";
 
 const skeletonLayouts = [
   // UI/UX — 2-col card grid
@@ -169,9 +169,11 @@ export default function Hero() {
 
       const tl = gsap.timeline();
 
+      // .hero-copy is intentionally excluded from this timeline — it's the
+      // LCP element, and animating its opacity from 0 delays LCP until this
+      // whole sequence finishes. It renders at full opacity immediately.
       tl.from(".hero-badge", { y: 12, opacity: 0 })
         .from(split.lines, { y: 24, opacity: 0, stagger: 0.08 }, "-=0.3")
-        .from(".hero-copy", { y: 16, opacity: 0 }, "-=0.4")
         .from(".hero-cta > *", { y: 16, opacity: 0, stagger: 0.08 }, "-=0.4");
 
       gsap.fromTo(
@@ -222,11 +224,6 @@ export default function Hero() {
       />
 
       <section className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center px-6 pt-16 pb-20 text-center sm:pt-20">
-        <div className="hero-badge mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-foreground-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-          Crafting Custom Solutions
-        </div>
-
         <h1 className="hero-heading max-w-4xl text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl">
           From idea to product built right.
         </h1>

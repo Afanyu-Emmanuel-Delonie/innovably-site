@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
-import StartProjectButton from "@/components/StartProjectButton";
+import StartProjectButton from "@/components/home/StartProjectButton";
 
 export default function UiUxHero() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -14,9 +14,11 @@ export default function UiUxHero() {
       const split = new SplitText(".uiux-heading", { type: "lines" });
       const tl = gsap.timeline();
 
+      // .uiux-copy is intentionally excluded from this timeline — it's the
+      // LCP element, and animating its opacity from 0 delays LCP until this
+      // whole sequence finishes. It renders at full opacity immediately.
       tl.from(".uiux-badge", { y: 12, opacity: 0 })
         .from(split.lines, { y: 24, opacity: 0, stagger: 0.08 }, "-=0.3")
-        .from(".uiux-copy", { y: 16, opacity: 0 }, "-=0.4")
         .from(".uiux-cta > *", { y: 16, opacity: 0, stagger: 0.08 }, "-=0.4");
 
       return () => split.revert();

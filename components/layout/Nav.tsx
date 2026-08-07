@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { MdMenu, MdClose, MdKeyboardArrowDown } from "react-icons/md";
-import StartProjectButton from "@/components/StartProjectButton";
+import StartProjectButton from "@/components/home/StartProjectButton";
 
 type NavLink = {
   label: string;

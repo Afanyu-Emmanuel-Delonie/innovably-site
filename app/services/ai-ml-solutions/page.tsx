@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import AiMlHero from "@/components/AiMlHero";
-import AiMlStatsSection from "@/components/AiMlStatsSection";
-import AiMlOfferingsSection from "@/components/AiMlOfferingsSection";
-import AiMlProcessSection from "@/components/AiMlProcessSection";
-import AiMlToolsSection from "@/components/AiMlToolsSection";
-import AiMlWhySection from "@/components/AiMlWhySection";
-import FAQSection from "@/components/FAQSection";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
-import JsonLd from "@/components/JsonLd";
+import Nav from "@/components/layout/Nav";
+import AiMlHero from "@/components/services/ai-ml/AiMlHero";
+import AiMlStatsSection from "@/components/services/ai-ml/AiMlStatsSection";
+import AiMlOfferingsSection from "@/components/services/ai-ml/AiMlOfferingsSection";
+import AiMlProcessSection from "@/components/services/ai-ml/AiMlProcessSection";
+import AiMlToolsSection from "@/components/services/ai-ml/AiMlToolsSection";
+import AiMlWhySection from "@/components/services/ai-ml/AiMlWhySection";
+import FAQSection from "@/components/home/FAQSection";
+import CTASection from "@/components/home/CTASection";
+import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/layout/JsonLd";
 
 export const metadata: Metadata = {
   title: "AI & Machine Learning Solutions — Innovably",

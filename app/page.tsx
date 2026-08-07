@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import StatsSection from "@/components/StatsSection";
-import ServicesSection from "@/components/ServicesSection";
-import CTASection from "@/components/CTASection";
-import ProcessSection from "@/components/ProcessSection";
-import ContactSection from "@/components/ContactSection";
-import FAQSection from "@/components/FAQSection";
-import Footer from "@/components/Footer";
-import JsonLd from "@/components/JsonLd";
+import Nav from "@/components/layout/Nav";
+import Hero from "@/components/home/Hero";
+import StatsSection from "@/components/home/StatsSection";
+import ServicesSection from "@/components/home/ServicesSection";
+import CTASection from "@/components/home/CTASection";
+import ProcessSection from "@/components/home/ProcessSection";
+import ContactSection from "@/components/home/ContactSection";
+import FAQSection from "@/components/home/FAQSection";
+import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/layout/JsonLd";
 
 export const metadata: Metadata = {
   title: "Custom Software & AI Solutions — Innovably",
@@ -28,26 +28,6 @@ export const metadata: Metadata = {
       "Innovably builds custom software, AI/ML integrations, cloud infrastructure, and UI/UX design for startups and growing businesses.",
     images: ["/og-default.png"],
   },
-};
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Innovably",
-  url: "https://innovably.digital",
-  logo: "https://innovably.digital/img/logo-dark.png",
-  contactPoint: [
-    { "@type": "ContactPoint", telephone: "+16138508278", contactType: "customer service", areaServed: "CA" },
-    { "@type": "ContactPoint", telephone: "+250786653794", contactType: "customer service", areaServed: "RW" },
-  ],
-  sameAs: [],
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Innovably",
-  url: "https://innovably.digital",
 };
 
 const homeFaqs = [
@@ -86,8 +66,6 @@ const faqSchema = {
 export default function Home() {
   return (
     <>
-      <JsonLd data={organizationSchema} />
-      <JsonLd data={websiteSchema} />
       <JsonLd data={faqSchema} />
       <Nav />
       <main>

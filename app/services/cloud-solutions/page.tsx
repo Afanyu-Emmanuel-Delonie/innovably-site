@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import CloudHero from "@/components/CloudHero";
-import CloudStatsSection from "@/components/CloudStatsSection";
-import CloudOfferingsSection from "@/components/CloudOfferingsSection";
-import CloudProcessSection from "@/components/CloudProcessSection";
-import CloudToolsSection from "@/components/CloudToolsSection";
-import CloudWhySection from "@/components/CloudWhySection";
-import FAQSection from "@/components/FAQSection";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
-import JsonLd from "@/components/JsonLd";
+import Nav from "@/components/layout/Nav";
+import CloudHero from "@/components/services/cloud/CloudHero";
+import CloudStatsSection from "@/components/services/cloud/CloudStatsSection";
+import CloudOfferingsSection from "@/components/services/cloud/CloudOfferingsSection";
+import CloudProcessSection from "@/components/services/cloud/CloudProcessSection";
+import CloudToolsSection from "@/components/services/cloud/CloudToolsSection";
+import CloudWhySection from "@/components/services/cloud/CloudWhySection";
+import FAQSection from "@/components/home/FAQSection";
+import CTASection from "@/components/home/CTASection";
+import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/layout/JsonLd";
 
 export const metadata: Metadata = {
   title: "Cloud Solutions — Migration, IaC & Cost Optimisation",

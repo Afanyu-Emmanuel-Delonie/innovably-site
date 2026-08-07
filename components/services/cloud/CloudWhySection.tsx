@@ -61,7 +61,7 @@ export default function CloudWhySection() {
       <div className="cloud-why-heading mb-14 flex flex-col gap-3">
         <span className="label">Why Innovably</span>
         <h2 className="max-w-lg text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Infrastructure you don't have to babysit.
+          Infrastructure you don&apos;t have to babysit.
         </h2>
       </div>
 

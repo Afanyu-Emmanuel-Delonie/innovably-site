@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
-import StartProjectButton from "@/components/StartProjectButton";
+import StartProjectButton from "@/components/home/StartProjectButton";
 
 export default function AboutHero() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -14,9 +15,11 @@ export default function AboutHero() {
       const split = new SplitText(".about-heading", { type: "lines" });
       const tl = gsap.timeline();
 
+      // .about-copy is intentionally excluded from this timeline — it's the
+      // LCP element, and animating its opacity from 0 delays LCP until this
+      // whole sequence finishes. It renders at full opacity immediately.
       tl.from(".about-badge", { y: 12, opacity: 0 })
         .from(split.lines, { y: 24, opacity: 0, stagger: 0.08 }, "-=0.3")
-        .from(".about-copy", { y: 16, opacity: 0 }, "-=0.4")
         .from(".about-cta > *", { y: 16, opacity: 0, stagger: 0.08 }, "-=0.4")
         .from(".about-stats > *", { y: 16, opacity: 0, stagger: 0.08 }, "-=0.3");
 
@@ -34,11 +37,7 @@ export default function AboutHero() {
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center px-6 pt-16 pb-24 text-center sm:pt-20">
-        <div className="about-badge mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-foreground-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-          Who We Are
-        </div>
-
+      
         <h1 className="about-heading max-w-3xl text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl">
           Built by builders, trusted to deliver.
         </h1>
@@ -49,12 +48,12 @@ export default function AboutHero() {
 
         <div className="about-cta mt-10 flex flex-col gap-4 text-base font-medium sm:flex-row">
           <StartProjectButton />
-          <a
+          <Link
             href="/#services"
             className="flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:border-border-strong hover:bg-surface-2"
           >
             See what we do
-          </a>
+          </Link>
         </div>
 
         <div className="about-stats mt-14 grid grid-cols-2 gap-px rounded-2xl border border-border bg-border sm:grid-cols-4">

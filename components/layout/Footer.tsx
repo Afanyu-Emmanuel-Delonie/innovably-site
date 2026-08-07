@@ -60,7 +60,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="footer-col col-span-2 flex flex-col gap-4 sm:col-span-1">
             <div className="flex items-center gap-2">
-              <Image src="/img/logo-dark.png" alt="" width={28} height={28} className="h-7 w-7 rounded-md" />
+              <Image src="/img/logo-dark.png" alt="Innovably logo" width={28} height={28} className="h-7 w-7 rounded-md" />
               <span className="text-base font-semibold tracking-tight text-foreground">
                 Innovably
               </span>

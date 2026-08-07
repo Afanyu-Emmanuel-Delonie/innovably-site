@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [{ hostname: "i.pravatar.cc" }, { hostname: "picsum.photos" }],
-  },
   async headers() {
     return [
       {
@@ -14,6 +11,17 @@ const nextConfig: NextConfig = {
           // Without this, Firebase SDK init can stall and block Firestore writes.
           { key: "Permissions-Policy", value: "unload=*" },
         ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        // The dashboard route was renamed from /analytics to /innovably —
+        // redirect rather than let the old path 404.
+        source: "/analytics",
+        destination: "/innovably",
+        permanent: true,
       },
     ];
   },

@@ -108,7 +108,7 @@ export default function AiMlProcessSection() {
           Six steps from raw data to production model.
         </h2>
         <p className="aiml-process-subtext mt-1 text-base leading-7 text-foreground-muted">
-          No black-box handoffs. You see what's being built and why at every stage.
+          No black-box handoffs. You see what&apos;s being built and why at every stage.
         </p>
       </div>
 
