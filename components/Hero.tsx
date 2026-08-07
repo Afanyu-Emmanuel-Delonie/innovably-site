@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
 import { MdDesignServices, MdPhoneIphone, MdCloud, MdPsychology, MdBusinessCenter } from "react-icons/md";
 import { TbBrush } from "react-icons/tb";
+import StartProjectButton from "@/components/StartProjectButton";
 
 const skeletonLayouts = [
   // UI/UX — 2-col card grid
@@ -220,7 +221,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <main className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center px-6 pt-16 pb-20 text-center sm:pt-20">
+      <section className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center px-6 pt-16 pb-20 text-center sm:pt-20">
         <div className="hero-badge mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-foreground-muted">
           <span className="h-1.5 w-1.5 rounded-full bg-primary" />
           Crafting Custom Solutions
@@ -235,20 +236,15 @@ export default function Hero() {
         </p>
 
         <div className="hero-cta mt-10 flex flex-col gap-4 text-base font-medium sm:flex-row">
+          <StartProjectButton />
           <a
-            href="#"
-            className="flex h-12 items-center justify-center rounded-full bg-primary px-6 text-primary-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:bg-primary-600"
-          >
-            Start a project
-          </a>
-          <a
-            href="#"
+            href="/solutions"
             className="flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:border-border-strong hover:bg-surface-2"
           >
             View our work
           </a>
         </div>
-      </main>
+      </section>
 
       <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-32 sm:px-10">
         <div className="relative">

@@ -1,6 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { MdEmail, MdEvent, MdPhone } from "react-icons/md";
 
@@ -9,7 +11,7 @@ const contactCards = [
     Icon: MdEmail,
     title: "Email",
     body: (
-      <span className="text-base text-foreground">team@innovably.digital</span>
+      <span className="text-base text-foreground">support@innovably.cloud</span>
     ),
     footnote: "We aim to respond within 24 hours",
   },
@@ -20,13 +22,13 @@ const contactCards = [
       <div className="flex flex-col gap-1 text-base">
         <span className="text-foreground">
           <span className="font-semibold">Canada:</span>{" "}
-          <a href="tel:+16138508278" className="text-foreground hover:underline">
+          <a href="https://wa.me/16138508278?text=Hi%20Innovably%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" className="text-foreground hover:underline">
             +1 (613) 850-8278
           </a>
         </span>
         <span className="text-foreground">
           <span className="font-semibold">Rwanda:</span>{" "}
-          <a href="tel:+250786653794" className="text-foreground hover:underline">
+          <a href="https://wa.me/250786653794?text=Hi%20Innovably%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" className="text-foreground hover:underline">
             +250 786 653 794
           </a>
         </span>
@@ -38,7 +40,7 @@ const contactCards = [
     Icon: MdEvent,
     title: "Quick Chat",
     body: (
-      <a href="#" className="text-base text-foreground hover:underline">
+      <a href="https://cal.com/innovably/quick-chat" target="_blank" rel="noopener noreferrer" className="text-base text-foreground hover:underline">
         Book a quick chat
       </a>
     ),
@@ -53,8 +55,38 @@ const topics = [
   "Support",
 ];
 
+type Status = "idle" | "submitting" | "success" | "error";
+
 export default function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const email = String(data.get("email") || "").trim();
+    const message = String(data.get("message") || "").trim();
+    if (!name || !email || !message) return;
+
+    setStatus("submitting");
+    try {
+      await addDoc(collection(db, "messages"), {
+        name,
+        email,
+        phone: String(data.get("phone") || "").trim() || null,
+        topic: String(data.get("topic") || "").trim() || null,
+        message,
+        submittedAt: serverTimestamp(),
+      });
+      form.reset();
+      setStatus("success");
+    } catch (err) {
+      console.error("[contact] failed to save message", err);
+      setStatus("error");
+    }
+  }
 
   useGSAP(
     () => {
@@ -126,13 +158,17 @@ export default function ContactSection() {
           ))}
         </div>
 
-        <form className="contact-form flex flex-col gap-5 rounded-lg border border-border bg-surface p-6 sm:p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="contact-form flex flex-col gap-5 rounded-lg border border-border bg-surface p-6 sm:p-8"
+        >
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm text-foreground-muted">
               Name
               <input
                 type="text"
                 name="name"
+                required
                 placeholder="Jane Doe"
                 className="rounded-lg border border-border bg-surface-2 px-4 py-2.5 text-foreground placeholder:text-foreground-subtle focus:outline-none"
               />
@@ -142,6 +178,7 @@ export default function ContactSection() {
               <input
                 type="email"
                 name="email"
+                required
                 placeholder="jane@company.com"
                 className="rounded-lg border border-border bg-surface-2 px-4 py-2.5 text-foreground placeholder:text-foreground-subtle focus:outline-none"
               />
@@ -187,11 +224,23 @@ export default function ContactSection() {
             />
           </label>
 
+          {status === "success" && (
+            <p className="text-sm text-primary" role="status">
+              Message sent — we&apos;ll get back to you within a couple of business days.
+            </p>
+          )}
+          {status === "error" && (
+            <p className="text-sm text-danger" role="alert">
+              Something went wrong sending that. Please try again.
+            </p>
+          )}
+
           <button
             type="submit"
-            className="mt-2 flex h-12 items-center justify-center rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:bg-primary-600"
+            disabled={status === "submitting"}
+            className="mt-2 flex h-12 items-center justify-center rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Send message
+            {status === "submitting" ? "Sending…" : "Send message"}
           </button>
         </form>
       </div>

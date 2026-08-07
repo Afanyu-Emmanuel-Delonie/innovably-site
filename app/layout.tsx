@@ -3,9 +3,27 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageLoader from "@/components/PageLoader";
 
+const SITE_URL = "https://innovably.digital";
+
 export const metadata: Metadata = {
-  title: "Innovably",
-  description: "Innovably",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Innovably — Custom Software, AI & Cloud Solutions",
+    template: "%s — Innovably",
+  },
+  description:
+    "Innovably builds custom software, AI/ML solutions, cloud infrastructure, and UI/UX design for startups and growing businesses worldwide.",
+  openGraph: {
+    siteName: "Innovably",
+    type: "website",
+    locale: "en_US",
+    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Innovably" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@innovably",
+  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {

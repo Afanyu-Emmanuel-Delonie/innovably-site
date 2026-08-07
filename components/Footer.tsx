@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
@@ -103,18 +104,18 @@ export default function Footer() {
         <div className="footer-bottom flex flex-col gap-4 border-t border-border pt-8 text-sm text-foreground-subtle sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Innovably. All rights reserved.</span>
           <div className="flex gap-6">
-            <a
-              href="#"
+            <Link
+              href="/privacy-policy"
               className="transition-colors duration-[var(--duration-fast)] hover:text-foreground"
             >
               Privacy Policy
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/terms-of-service"
               className="transition-colors duration-[var(--duration-fast)] hover:text-foreground"
             >
               Terms of Service
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import StartProjectButton from "@/components/StartProjectButton";
 
 export default function AboutHero() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -47,12 +48,7 @@ export default function AboutHero() {
         </p>
 
         <div className="about-cta mt-10 flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            href="/#contact"
-            className="flex h-12 items-center justify-center rounded-full bg-primary px-6 text-primary-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:bg-primary-600"
-          >
-            Start a project
-          </a>
+          <StartProjectButton />
           <a
             href="/#services"
             className="flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:border-border-strong hover:bg-surface-2"

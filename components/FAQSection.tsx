@@ -3,7 +3,9 @@
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 
-const faqs = [
+export type Faq = { question: string; answer: string };
+
+const defaultFaqs: Faq[] = [
   {
     question: "Do you work with startups or only larger companies?",
     answer:
@@ -31,7 +33,17 @@ const faqs = [
   },
 ];
 
-export default function FAQSection() {
+type FAQSectionProps = {
+  eyebrow?: string;
+  heading?: string;
+  faqs?: Faq[];
+};
+
+export default function FAQSection({
+  eyebrow = "FAQ",
+  heading = "Questions, answered.",
+  faqs = defaultFaqs,
+}: FAQSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -59,13 +71,14 @@ export default function FAQSection() {
 
   return (
     <section
+      id="faq"
       ref={sectionRef}
       className="relative mx-auto w-full max-w-3xl px-6 py-24 sm:px-10"
     >
       <div className="faq-heading mb-12 text-center">
-        <span className="label">FAQ</span>
+        <span className="label">{eyebrow}</span>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Questions, answered.
+          {heading}
         </h2>
       </div>
 
