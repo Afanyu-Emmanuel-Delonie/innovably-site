@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import CustomSoftwareHero from "@/components/CustomSoftwareHero";
-import CustomSoftwareStatsSection from "@/components/CustomSoftwareStatsSection";
-import CustomSoftwareTypesSection from "@/components/CustomSoftwareTypesSection";
-import CustomSoftwareProcessSection from "@/components/CustomSoftwareProcessSection";
-import CustomSoftwareTechSection from "@/components/CustomSoftwareTechSection";
-import CustomSoftwareWhySection from "@/components/CustomSoftwareWhySection";
-import FAQSection from "@/components/FAQSection";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
-import JsonLd from "@/components/JsonLd";
+import Nav from "@/components/layout/Nav";
+import CustomSoftwareHero from "@/components/services/custom-software/CustomSoftwareHero";
+import CustomSoftwareStatsSection from "@/components/services/custom-software/CustomSoftwareStatsSection";
+import CustomSoftwareTypesSection from "@/components/services/custom-software/CustomSoftwareTypesSection";
+import CustomSoftwareProcessSection from "@/components/services/custom-software/CustomSoftwareProcessSection";
+import CustomSoftwareTechSection from "@/components/services/custom-software/CustomSoftwareTechSection";
+import CustomSoftwareWhySection from "@/components/services/custom-software/CustomSoftwareWhySection";
+import FAQSection from "@/components/home/FAQSection";
+import CTASection from "@/components/home/CTASection";
+import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/layout/JsonLd";
 
 export const metadata: Metadata = {
   title: "Custom Software Development Services — Innovably",

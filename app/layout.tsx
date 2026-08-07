@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
-import PageLoader from "@/components/PageLoader";
+import SmoothScroll from "@/components/layout/SmoothScroll";
+import PageLoader from "@/components/layout/PageLoader";
+import JsonLd from "@/components/layout/JsonLd";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
 
 const SITE_URL = "https://innovably.digital";
 
@@ -46,6 +48,8 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
         <SmoothScroll />
         <PageLoader />
         {children}

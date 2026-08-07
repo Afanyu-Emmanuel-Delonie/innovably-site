@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/start-a-project"],
+        disallow: ["/api/", "/start-a-project", "/auth", "/innovably"],
       },
     ],
     sitemap: "https://innovably.digital/sitemap.xml",

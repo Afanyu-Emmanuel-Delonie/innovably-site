@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import AboutHero from "@/components/AboutHero";
-import OurStorySection from "@/components/OurStorySection";
-import MissionSection from "@/components/MissionSection";
-import CoreValuesSection from "@/components/CoreValuesSection";
-import TeamSection from "@/components/TeamSection";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
+import Nav from "@/components/layout/Nav";
+import AboutHero from "@/components/about/AboutHero";
+import OurStorySection from "@/components/about/OurStorySection";
+import MissionSection from "@/components/about/MissionSection";
+import CoreValuesSection from "@/components/about/CoreValuesSection";
+import TeamSection from "@/components/about/TeamSection";
+import CTASection from "@/components/home/CTASection";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "About Us — Our Story, Mission & Team",

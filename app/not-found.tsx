@@ -1,9 +1,10 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import Nav from "@/components/layout/Nav";
+import Footer from "@/components/layout/Footer";
 
 export default function NotFound() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -53,22 +54,22 @@ export default function NotFound() {
           </h1>
 
           <p className="nf-body mt-6 max-w-md text-lg leading-8 text-foreground-muted">
-            The page you're looking for doesn't exist, was moved, or the URL has a typo in it.
+            The page you&apos;re looking for doesn&apos;t exist, was moved, or the URL has a typo in it.
           </p>
 
           <div className="nf-ctas mt-10 flex flex-col gap-4 text-base font-medium sm:flex-row">
-            <a
+            <Link
               href="/"
               className="flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:border-border-strong hover:bg-surface-2"
             >
               ← Back to home
-            </a>
-            <a
+            </Link>
+            <Link
               href="/#contact"
               className="flex h-12 items-center justify-center rounded-full bg-primary px-6 text-primary-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:bg-primary-600"
             >
               Start a project
-            </a>
+            </Link>
           </div>
         </div>
       </main>

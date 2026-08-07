@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
-import StartProjectButton from "@/components/StartProjectButton";
+import StartProjectButton from "@/components/home/StartProjectButton";
 
 export default function CTASection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -61,12 +62,12 @@ export default function CTASection() {
         </p>
         <div className="cta-buttons flex flex-col gap-4 sm:flex-row">
           <StartProjectButton />
-          <a
+          <Link
             href="/#contact"
             className="flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-base font-medium text-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:border-border-strong hover:bg-surface-2"
           >
             Get in touch
-          </a>
+          </Link>
         </div>
       </div>
     </section>

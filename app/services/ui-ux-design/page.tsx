@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import UiUxHero from "@/components/UiUxHero";
-import UiUxOfferingsSection from "@/components/UiUxOfferingsSection";
-import UiUxProcessSection from "@/components/UiUxProcessSection";
-import UiUxToolsSection from "@/components/UiUxToolsSection";
-import UiUxWhySection from "@/components/UiUxWhySection";
-import FAQSection from "@/components/FAQSection";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
-import JsonLd from "@/components/JsonLd";
+import Nav from "@/components/layout/Nav";
+import UiUxHero from "@/components/services/ui-ux/UiUxHero";
+import UiUxOfferingsSection from "@/components/services/ui-ux/UiUxOfferingsSection";
+import UiUxProcessSection from "@/components/services/ui-ux/UiUxProcessSection";
+import UiUxToolsSection from "@/components/services/ui-ux/UiUxToolsSection";
+import UiUxWhySection from "@/components/services/ui-ux/UiUxWhySection";
+import FAQSection from "@/components/home/FAQSection";
+import CTASection from "@/components/home/CTASection";
+import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/layout/JsonLd";
 
 export const metadata: Metadata = {
   title: "UI/UX Design Services — Research to Design System",
