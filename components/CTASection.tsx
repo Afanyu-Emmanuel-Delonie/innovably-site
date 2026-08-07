@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import StartProjectButton from "@/components/StartProjectButton";
 
 export default function CTASection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -59,12 +60,7 @@ export default function CTASection() {
           talk about what you&apos;re building.
         </p>
         <div className="cta-buttons flex flex-col gap-4 sm:flex-row">
-          <a
-            href="/#contact"
-            className="flex h-12 items-center justify-center rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:bg-primary-600"
-          >
-            Start a project
-          </a>
+          <StartProjectButton />
           <a
             href="/#contact"
             className="flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-base font-medium text-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:border-border-strong hover:bg-surface-2"

@@ -5,13 +5,39 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { MdMenu, MdClose } from "react-icons/md";
+import { MdMenu, MdClose, MdKeyboardArrowDown } from "react-icons/md";
+import StartProjectButton from "@/components/StartProjectButton";
 
-const navLinks: { label: string; href: string; section?: string }[] = [
+type NavLink = {
+  label: string;
+  href?: string;
+  section?: string;
+  children?: { label: string; href: string }[];
+};
+
+const navLinks: NavLink[] = [
   { label: "Home", href: "/", section: "home" },
   { label: "About", href: "/about" },
-  { label: "Services", href: "/#services", section: "services" },
-  { label: "Solutions", href: "/#" },
+  {
+    label: "Services",
+    children: [
+      { label: "UI/UX Design", href: "/services/ui-ux-design" },
+      { label: "Custom Software", href: "/services/custom-software" },
+      { label: "Cloud Solutions", href: "/services/cloud-solutions" },
+      { label: "AI/ML Solutions", href: "/services/ai-ml-solutions" },
+    ],
+  },
+  {
+    label: "Products",
+    children: [
+      { label: "EAZZ QUOTE", href: "/solutions#eazz-quote" },
+      { label: "EAZZ BOOKS", href: "/solutions#eazz-books" },
+      { label: "EAZZ TRACK", href: "/solutions#eazz-track" },
+      { label: "EAZZ MEETINGS", href: "/solutions#eazz-meetings" },
+      { label: "EAZZ DOCS", href: "/solutions#eazz-docs" },
+      { label: "EAZZ EDU", href: "/solutions#eazz-edu" },
+    ],
+  },
   { label: "Contact", href: "/#contact", section: "contact" },
 ];
 
@@ -99,7 +125,8 @@ export default function Nav() {
     { scope: navRef },
   );
 
-  const isActive = (link: (typeof navLinks)[number]) => {
+  const isActive = (link: NavLink) => {
+    if (link.children) return link.children.some((c) => pathname === c.href.split("#")[0]);
     if (!link.section) return pathname === link.href;
     return pathname === "/" && activeSection === link.section;
   };
@@ -119,7 +146,7 @@ export default function Nav() {
             href="/"
             className="flex items-center gap-2 text-base font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
           >
-            <Image src="/img/logo-dark.png" alt="" width={28} height={28} className="h-7 w-7 rounded-md" />
+            <Image src="/img/logo-dark.png" alt="Innovably logo" width={28} height={28} className="h-7 w-7 rounded-md" />
             Innovably
           </Link>
 
@@ -127,10 +154,49 @@ export default function Nav() {
           <ul className="hidden items-center gap-8 text-sm md:flex">
             {navLinks.map((link) => {
               const active = isActive(link);
+
+              if (link.children) {
+                return (
+                  <li key={link.label} className="group relative">
+                    <span
+                      tabIndex={0}
+                      className={`relative flex cursor-default items-center gap-1 transition-colors duration-[var(--duration-fast)] hover:text-foreground focus-visible:text-foreground focus:outline-none ${
+                        active ? "text-foreground" : "text-foreground-muted"
+                      }`}
+                    >
+                      {link.label}
+                      <MdKeyboardArrowDown className="h-4 w-4 transition-transform duration-[var(--duration-fast)] group-hover:rotate-180 group-focus-within:rotate-180" />
+                      {active && (
+                        <span className="absolute -bottom-1 left-0 h-px w-full rounded-full bg-primary" />
+                      )}
+                    </span>
+
+                    <div className="invisible absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-[var(--duration-fast)] group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                      <ul className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-2 shadow-lg shadow-black/20">
+                        {link.children.map((child) => (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              className={`block rounded-lg px-3 py-2 text-sm transition-colors duration-[var(--duration-fast)] ${
+                                pathname === child.href.split("#")[0]
+                                  ? "bg-surface-2 text-foreground"
+                                  : "text-foreground-muted hover:bg-surface-2 hover:text-foreground"
+                              }`}
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                );
+              }
+
               return (
                 <li key={link.label}>
                   <Link
-                    href={link.href}
+                    href={link.href!}
                     className={`relative transition-colors duration-[var(--duration-fast)] hover:text-foreground ${
                       active ? "text-foreground" : "text-foreground-muted"
                     }`}
@@ -146,12 +212,9 @@ export default function Nav() {
           </ul>
 
           {/* Desktop CTA */}
-          <Link
-            href="/#contact"
-            className="hidden rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors duration-[var(--duration-base)] ease-out-quart hover:bg-primary-600 md:block"
-          >
-            Start a project
-          </Link>
+          <div className="hidden items-center gap-3 md:flex">
+            <StartProjectButton variant="pill" />
+          </div>
 
           {/* Mobile menu toggle */}
           <button
@@ -173,10 +236,39 @@ export default function Nav() {
           <ul className="flex flex-col gap-1">
             {navLinks.map((link) => {
               const active = isActive(link);
+
+              if (link.children) {
+                return (
+                  <li key={link.label} className="mobile-link flex flex-col gap-1">
+                    <span className="px-4 pt-3 text-sm font-medium uppercase tracking-[0.08em] text-foreground-subtle">
+                      {link.label}
+                    </span>
+                    {link.children.map((child) => {
+                      const childActive = pathname === child.href.split("#")[0];
+                      return (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          onClick={() => setMenuOpen(false)}
+                          className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium transition-colors duration-[var(--duration-fast)] ${
+                            childActive
+                              ? "bg-surface text-foreground"
+                              : "text-foreground-muted hover:bg-surface hover:text-foreground"
+                          }`}
+                        >
+                          {child.label}
+                          {childActive && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
+                        </Link>
+                      );
+                    })}
+                  </li>
+                );
+              }
+
               return (
                 <li key={link.label}>
                   <Link
-                    href={link.href}
+                    href={link.href!}
                     onClick={() => setMenuOpen(false)}
                     className={`mobile-link flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium transition-colors duration-[var(--duration-fast)] ${
                       active
@@ -192,14 +284,8 @@ export default function Nav() {
             })}
           </ul>
 
-          <div className="mt-auto">
-            <Link
-              href="/#contact"
-              onClick={() => setMenuOpen(false)}
-              className="flex h-12 w-full items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-600"
-            >
-              Start a project
-            </Link>
+          <div className="mt-auto pt-6">
+            <StartProjectButton className="w-full" />
           </div>
         </div>
       )}
